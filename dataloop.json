@@ -1,0 +1,223 @@
+{
+  "displayName": "AWS Export",
+  "name": "aws-export",
+  "description": "Import and Export annotations to AWS bucket",
+  "attributes": {
+    "Provider": "AWS",
+    "Category": "Pipeline",
+    "Pipeline Type": "Node",
+    "Node Type":"Data"
+  },
+  "version": "1.0.0",
+  "icon": "icon-dl-function",
+  "scope": "project",
+  "codebase": {
+    "type": "git",
+    "gitUrl": "https://github.com/dataloop-ai-apps/export-aws.git",
+    "gitTag": "1.0.0"
+  },
+  "components": {
+    "pipelineNodes": [
+      {
+        "invoke": {
+          "type": "function",
+          "namespace": "aws-hooks.export_annotation"
+        },
+        "name": "AWS Export Annotations",
+        "categories": ["data"],
+        "displayName": "AWS Export Annotations",
+        "description": "Export an item annotations to AWS bucket",
+        "scope": "project",
+        "configuration": {
+          "fields": [
+            {
+              "name": "name",
+              "title": "Node Name",
+              "props": {
+                "title": true,
+                "type": "string",
+                "default": "AWS Export Annotations",
+                "required": true,
+                "placeholder": "Insert node name"
+              },
+              "rules": [
+                {
+                  "type": "required",
+                  "effect": "error"
+                }
+              ],
+              "widget": "dl-input"
+            },
+            {
+              "name": "bucket_name",
+              "title": "Bucket Name",
+              "props": {
+                "type": "string",
+                "title": true,
+                "required": true,
+                "placeholder": "Insert bucket name"
+              },
+              "rules": [
+                {
+                  "type": "required",
+                  "effect": "error"
+                }
+              ],
+              "widget": "dl-input"
+            },
+            {
+              "name": "region_name",
+              "title": "Region Name",
+              "props": {
+                "type": "string",
+                "title": true,
+                "required": true,
+                "placeholder": "Insert region name"
+              },
+              "rules": [
+                {
+                  "type": "required",
+                  "effect": "error"
+                }
+              ],
+              "widget": "dl-input"
+            }
+          ]
+        }
+      },
+      {
+        "invoke": {
+          "type": "function",
+          "namespace": "aws-hooks.import_annotation"
+        },
+        "name": "AWS Import Annotations",
+        "categories": ["data"],
+        "displayName": "AWS Import Annotations",
+        "description": "Import an annotations to an item from AWS bucket",
+        "scope": "project",
+        "configuration": {
+          "fields": [
+            {
+              "name": "name",
+              "title": "Node Name",
+              "props": {
+                "title": true,
+                "type": "string",
+                "default": "AWS Import Annotations",
+                "required": true,
+                "placeholder": "Insert node name"
+              },
+              "rules": [
+                {
+                  "type": "required",
+                  "effect": "error"
+                }
+              ],
+              "widget": "dl-input"
+            },
+            {
+              "name": "bucket_name",
+              "title": "Bucket Name",
+              "props": {
+                "type": "string",
+                "required": true,
+                "placeholder": "Insert bucket name"
+              },
+              "rules": [
+                {
+                  "type": "required",
+                  "effect": "error"
+                }
+              ],
+              "widget": "dl-input"
+            },
+            {
+              "name": "region_name",
+              "title": "Region Name",
+              "props": {
+                "type": "string",
+                "title": true,
+                "required": true,
+                "placeholder": "Insert region name"
+              },
+              "rules": [
+                {
+                  "type": "required",
+                  "effect": "error"
+                }
+              ],
+              "widget": "dl-input"
+            }
+          ]
+        }
+      }
+    ],
+    "modules": [
+      {
+        "name": "aws-hooks",
+        "entryPoint": "modules/aws_hooks.py",
+        "className": "HookIntegrationAWS",
+        "initInputs": [
+          {
+            "type": "staring",
+            "name": "integration_name"
+          }
+        ],
+        "functions": [
+          {
+            "name": "export_annotation",
+            "description": "Export an item annotations to AWS bucket",
+            "input": [
+              {
+                "type": "Item",
+                "name": "item"
+              }
+            ],
+            "output": [
+              {
+                "type": "Item",
+                "name": "item"
+              }
+            ],
+            "displayIcon": "function",
+            "displayName": "AWS Export Annotations"
+          },
+          {
+            "name": "import_annotation",
+            "description": "Import an annotations to an item from AWS bucket",
+            "input": [
+              {
+                "type": "Item",
+                "name": "item"
+              }
+            ],
+            "output": [
+              {
+                "type": "Item",
+                "name": "item"
+              }
+            ],
+            "displayIcon": "function",
+            "displayName": "AWS Import Annotations"
+          }
+        ]
+      }
+    ],
+    "services": [
+      {
+        "name": "aws-hooks",
+        "moduleName": "aws-hooks",
+        "runtime": {
+          "podType": "regular-xs",
+          "concurrency": 10,
+          "autoscaler": {
+            "minReplicas": 0,
+            "maxReplicas": 2,
+            "queueLength": 10
+          },
+          "executionTimeout": 3600
+        }
+      }
+    ]
+  }
+}
