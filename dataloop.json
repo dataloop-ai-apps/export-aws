@@ -10,7 +10,7 @@
   },
   "version": "1.0.1",
   "icon": "icon-dl-function",
-  "scope": "public",
+  "scope": "node",
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/export-aws.git",
@@ -27,7 +27,7 @@
         "categories": ["data"],
         "displayName": "AWS Export Annotations",
         "description": "Export an item annotations to AWS bucket",
-        "scope": "project",
+        "scope": "node",
         "configuration": {
           "fields": [
             {
