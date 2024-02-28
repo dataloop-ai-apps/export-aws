@@ -156,7 +156,7 @@
       {
         "name": "aws-hooks",
         "entryPoint": "modules/aws_hooks.py",
-        "className": "HookIntegrationAWS",
+        "className": "AWSExport",
         "initInputs": [
           {
             "type": "staring",
