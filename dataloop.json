@@ -94,7 +94,7 @@
         "categories": ["data"],
         "displayName": "AWS Import Annotations",
         "description": "Import an annotations to an item from AWS bucket",
-        "scope": "project",
+        "scope": "node",
         "configuration": {
           "fields": [
             {
