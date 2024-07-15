@@ -5,11 +5,11 @@
   "attributes": {
     "Provider": "AWS",
     "Category": "Application",
-    "Media Type": "All",
     "Application Type": [
       "Pipeline Node",
       "Data Management"
-    ]
+    ],
+    "Media Type": "All"
   },
   "version": "1.0.4",
   "icon": "icon-dl-function",
