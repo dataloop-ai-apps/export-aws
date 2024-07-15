@@ -5,6 +5,7 @@
   "attributes": {
     "Provider": "AWS",
     "Category": "Application",
+    "Media Type": "All",
     "Application Type": [
       "Pipeline Node",
       "Data Management"
