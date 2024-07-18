@@ -186,7 +186,7 @@
                 "name": "item"
               }
             ],
-            "displayIcon": "function",
+            "displayIcon": "icon-dl-export-annotations",
             "displayName": "AWS Export Annotations"
           },
           {
@@ -204,7 +204,7 @@
                 "name": "item"
               }
             ],
-            "displayIcon": "function",
+            "displayIcon": "icon-dl-import-annotations",
             "displayName": "AWS Import Annotations"
           }
         ]
