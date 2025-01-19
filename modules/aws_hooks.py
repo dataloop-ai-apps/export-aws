@@ -11,19 +11,23 @@ logger = logging.getLogger(name='AWS Export & Import')
 
 class AWSExport(dl.BaseServiceRunner):
     def __init__(self):
+        """
+        Initializes the ServiceRunner with AWS Export & Import API credentials.
+        """
         self.logger = logger
         self.logger.info('Initializing AWS Export & Import API client')
         raw_credentials = os.environ.get("AWS_INTEGRATION", None)
         if raw_credentials is None:
-            raise ValueError(f"Missing GCP service account json.")
+            raise ValueError(f"Missing AWS integration.")
 
-        # for case of integration
         try:
-            credentials = json.loads(raw_credentials)
-        except json.JSONDecodeError:
             decoded_credentials = base64.b64decode(raw_credentials).decode("utf-8")
             credentials_json = json.loads(decoded_credentials)
             credentials = json.loads(credentials_json['content'])
+        except Exception:
+            raise ValueError(f"Failed to decode the service integration. "
+                             f"Follow this link ReadMe to check how to properly use AWS integration with Dataloop:"
+                             f"https://github.com/dataloop-ai-apps/export-aws/blob/main/README.md")
 
         self.aws_secret_access_key = credentials['secret']
         self.aws_access_key_id = credentials['key']
