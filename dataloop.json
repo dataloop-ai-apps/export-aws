@@ -4,6 +4,7 @@
   "description": "Import and Export annotations to AWS bucket",
   "attributes": {
     "Provider": "AWS",
+    "Deployed By": "AWS",
     "Category": "Application",
     "Application Type": [
       "Pipeline Node",
@@ -60,8 +61,8 @@
               "name": "bucket_name",
               "title": "Bucket Name",
               "props": {
-                "type": "string",
                 "title": true,
+                "type": "string",
                 "required": true,
                 "placeholder": "Insert bucket name"
               },
@@ -77,8 +78,8 @@
               "name": "region_name",
               "title": "Region Name",
               "props": {
-                "type": "string",
                 "title": true,
+                "type": "string",
                 "required": true,
                 "placeholder": "Insert region name"
               },
@@ -129,6 +130,7 @@
               "name": "bucket_name",
               "title": "Bucket Name",
               "props": {
+                "title": true,
                 "type": "string",
                 "required": true,
                 "placeholder": "Insert bucket name"
@@ -145,8 +147,8 @@
               "name": "region_name",
               "title": "Region Name",
               "props": {
-                "type": "string",
                 "title": true,
+                "type": "string",
                 "required": true,
                 "placeholder": "Insert region name"
               },
@@ -167,12 +169,10 @@
         "name": "aws-hooks",
         "entryPoint": "modules/aws_hooks.py",
         "className": "AWSExport",
-        "initInputs": [
-          {
-            "type": "staring",
-            "name": "integration_name"
-          }
+        "integrations": [
+           "dl-aws-integration"
         ],
+        "initInputs": [],
         "functions": [
           {
             "name": "export_annotation",

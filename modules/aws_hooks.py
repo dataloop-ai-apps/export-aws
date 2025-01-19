@@ -10,15 +10,23 @@ logger = logging.getLogger(name='AWS Export & Import')
 
 
 class AWSExport(dl.BaseServiceRunner):
-    def __init__(self, integration_name):
+    def __init__(self):
+        self.logger = logger
+        self.logger.info('Initializing AWS Export & Import API client')
+        raw_credentials = os.environ.get("AWS_INTEGRATION", None)
+        if raw_credentials is None:
+            raise ValueError(f"Missing GCP service account json.")
 
-        aws_credentials = os.environ.get(integration_name.replace('-', '_'))
-        decoded_bytes = base64.b64decode(aws_credentials)
-        aws_credentials = decoded_bytes.decode("utf-8")
-        aws_credentials = json.loads(aws_credentials)
+        # for case of integration
+        try:
+            credentials = json.loads(raw_credentials)
+        except json.JSONDecodeError:
+            decoded_credentials = base64.b64decode(raw_credentials).decode("utf-8")
+            credentials_json = json.loads(decoded_credentials)
+            credentials = json.loads(credentials_json['content'])
 
-        self.aws_secret_access_key = aws_credentials['secret']
-        self.aws_access_key_id = aws_credentials['key']
+        self.aws_secret_access_key = credentials['secret']
+        self.aws_access_key_id = credentials['key']
 
     def export_annotation(self, item: dl.Item, context: dl.Context):
         if context is not None and context.node is not None and 'customNodeConfig' in context.node.metadata:
@@ -69,7 +77,8 @@ def test():
         def __init__(self, metadata):
             self.metadata = metadata
 
-    service_runner = AWSExport(integration_name="")
+    os.environ["AWS_INTEGRATION"] = ""
+    service_runner = AWSExport()
     original_item = dl.items.get(item_id='')
     original_annotations = original_item.annotations.list()
     remote_filepath = "/clones/1.jpg"

@@ -2,7 +2,7 @@ import os
 import unittest
 import dtlpy as dl
 
-from modules.aws_hooks import HookIntegrationAWS
+from modules.aws_hooks import AWSExport
 
 
 class Node:
@@ -12,7 +12,8 @@ class Node:
 
 class TestRunner(unittest.TestCase):
     def setUp(self):
-        self.runner = HookIntegrationAWS(integration_name='')
+        os.environ["AWS_INTEGRATION"] = ""
+        self.runner = AWSExport()
         self.original_item = dl.items.get(item_id='658ae4cd160fb30cdebf1156')
         self.original_annotations = self.original_item.annotations.list()
         remote_filepath = "/clones/1.jpg"

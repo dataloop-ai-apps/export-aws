@@ -1,15 +1,16 @@
 # AWS Hooks
 
-The **AWS Hooks** application has two nodes to Export and Import annotation directly from AWS bucket.  \
+The **AWS Hooks** application has two nodes to Export and Import annotation directly from AWS bucket.
+
 
 ## Quick Start:
 
 1. Go to `Pipelines` and `Create new pipeline`.
 2. Build a custom work flow that requires Export/Import annotations to/from AWS bucket
-3. Define the bucket name and the region name in the node configuration panel. \
+3. Define the bucket name and the region name in the node configuration panel.
 4. Start pipeline
 
-Pre-requirements: The GPC-hooks service get integration_name parameter, the integration name is the secret name that holds the service account json data.  
+Pre-requirements: The AWS-hooks service needs an integration of `AWS_INTEGRATION` that holds the service account json data.  
 
 Also, secret with the following  format can be used as well (put the secrete name in the integration name filed)
 
@@ -20,19 +21,21 @@ Also, secret with the following  format can be used as well (put the secrete nam
 }
 ```
 
+
 ## Node inputs and Outputs:
 
-Both aws-hooks2 nodes get the same item as input and output
+Both aws-hooks 2 nodes get the same item as input and output
+
 
 ## How it works:
 
 ### Export Annotations to AWS
-When an item passes through the node, will export the annotations to a json file and upload it to the AWS bucket. \
+When an item passes through the node, the node will export the item annotations to a json file and upload it to the AWS bucket. \
 The file will be uploaded to the following location: \
 `<driver_path>/<item.dir>/<item.name>.json`
 
 ### Import Annotations from AWS
-When an item passes through the node, will download the JSON annotations file from the AWS bucket and update the item with the new annotations. \
+When an item passes through the node, the node will download the item JSON annotations file from the AWS bucket and update the item with the new annotations. \
 The file will be downloaded from the following location: \
 `<driver_path>/<item.dir>/<item.name>.json`
 
