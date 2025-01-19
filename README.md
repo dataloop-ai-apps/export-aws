@@ -46,9 +46,9 @@ The file will be downloaded from the following location: \
 
 **Configuration**
 
-- **Node Name:** Display name on the canvas.
-- **Bucket Name:** the bucket name to export/import the annotations
-- **Region Name:** the region name of the bucket
+- **Node Name:** The display name on the canvas.
+- **Bucket Name:** The bucket name to export/import the annotations
+- **Region Name:** The region name of the bucket
 
 
 ## Contributions, Bugs and Issues - How to Contribute
