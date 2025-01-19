@@ -219,6 +219,7 @@
         "moduleName": "aws-hooks",
         "runtime": {
           "podType": "regular-xs",
+          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/apps/export-aws:0.0.1",
           "concurrency": 10,
           "autoscaler": {
             "minReplicas": 0,
