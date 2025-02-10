@@ -42,8 +42,10 @@ The file will be downloaded from the following location: \
 
 ## Setting Up Your AWS Project
 
-To use these nodes, you need an Amazon Web Services (AWS) project. Follow these steps to get started: \
-[AWS Access Key Integration](https://docs.dataloop.ai/docs/aws-access-key-integration)
+To use these nodes, you need an Amazon Web Services (AWS) project. Follow these steps to get started:
+
+1. Create a S3 [Bucket](https://docs.dataloop.ai/docs/aws-access-key-integration#:~:text=integration%20process%20involves%3A-,Step%201.%20Create%20an%20S3%20Bucket,-Log%20in%20to).
+2. Create a S3 [Access Key](https://docs.dataloop.ai/docs/aws-access-key-integration#:~:text=for%20more%20information.-,Step%204.%20Create%20an%20Access%20Key%20for%20the%20IAM%20User,-Log%20in%20to).
 
 
 ## Integrating AWS Export & Import API with Dataloop Platform
