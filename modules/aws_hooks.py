@@ -24,9 +24,9 @@ class AWSExport(dl.BaseServiceRunner):
             decoded_credentials = base64.b64decode(raw_credentials).decode("utf-8")
             credentials = json.loads(decoded_credentials)
         except Exception:
-            raise ValueError(f"Unable to decode the service integration. "
-                             f"Please refer to the following guide for proper usage of AWS integrations with"
-                             f"Dataloop: https://github.com/dataloop-ai-apps/export-aws/blob/main/README.md")
+            raise ValueError(f"Failed to decode the service integration. Refer to the guide for proper AWS "
+                             f"integrations usage with Dataloop: "
+                             f"https://github.com/dataloop-ai-apps/export-aws/blob/main/README.md")
         self.aws_secret_access_key = credentials['secret']
         self.aws_access_key_id = credentials['key']
 
