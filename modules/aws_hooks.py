@@ -10,15 +10,25 @@ logger = logging.getLogger(name='AWS Export & Import')
 
 
 class AWSExport(dl.BaseServiceRunner):
-    def __init__(self, integration_name):
+    def __init__(self):
+        """
+        Initializes the ServiceRunner with AWS Export & Import API credentials.
+        """
+        self.logger = logger
+        self.logger.info('Initializing AWS Export & Import API client')
+        raw_credentials = os.environ.get("AWS_INTEGRATION", None)
+        if raw_credentials is None:
+            raise ValueError(f"Missing AWS integration.")
 
-        aws_credentials = os.environ.get(integration_name.replace('-', '_'))
-        decoded_bytes = base64.b64decode(aws_credentials)
-        aws_credentials = decoded_bytes.decode("utf-8")
-        aws_credentials = json.loads(aws_credentials)
-
-        self.aws_secret_access_key = aws_credentials['secret']
-        self.aws_access_key_id = aws_credentials['key']
+        try:
+            decoded_credentials = base64.b64decode(raw_credentials).decode("utf-8")
+            credentials = json.loads(decoded_credentials)
+        except Exception:
+            raise ValueError("Failed to decode the service integration. Refer to the guide for proper AWS "
+                             "integrations usage with Dataloop: "
+                             "https://github.com/dataloop-ai-apps/export-aws/blob/main/README.md")
+        self.aws_secret_access_key = credentials['secret']
+        self.aws_access_key_id = credentials['key']
 
     def export_annotation(self, item: dl.Item, context: dl.Context):
         if context is not None and context.node is not None and 'customNodeConfig' in context.node.metadata:
@@ -62,31 +72,3 @@ class AWSExport(dl.BaseServiceRunner):
         data = json.loads(json_data)
         item.annotations.upload(annotations=data['annotations'])
         return item
-
-
-def test():
-    class Node:
-        def __init__(self, metadata):
-            self.metadata = metadata
-
-    service_runner = AWSExport(integration_name="")
-    original_item = dl.items.get(item_id='')
-    original_annotations = original_item.annotations.list()
-    remote_filepath = "/clones/1.jpg"
-    try:
-        item = original_item.dataset.items.get(filepath=remote_filepath)
-        item.delete()
-    except dl.exceptions.NotFound:
-        pass
-
-    item = original_item.clone(remote_filepath=remote_filepath)
-    context = dl.Context()
-    context._node = Node(metadata={'customNodeConfig': {'bucket_name': '', 'region_name': ''}})
-    service_runner.export_annotation(item=item, context=context)
-    item.annotations.delete(filters=dl.Filters(resource=dl.FiltersResource.ANNOTATION))
-    service_runner.import_annotation(item=item, context=context)
-    assert len(item.annotations.list()) == len(original_annotations)
-
-
-if __name__ == '__main__':
-    test()
