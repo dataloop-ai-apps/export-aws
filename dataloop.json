@@ -4,7 +4,7 @@
   "description": "Import and Export annotations to AWS bucket",
   "attributes": {
     "Provider": "AWS",
-    "Deployed By": "Dataloop",
+    "Deployed By": "DDOE",
     "Category": "Application",
     "Application Type": [
       "Pipeline Node",

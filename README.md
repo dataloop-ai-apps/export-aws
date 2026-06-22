@@ -50,9 +50,9 @@ To use these nodes, you need an Amazon Web Services (AWS) project. Follow these 
 4. Create an [Access Key](https://docs.dataloop.ai/docs/aws-access-key-integration#:~:text=for%20more%20information.-,Step%204.%20Create%20an%20Access%20Key%20for%20the%20IAM%20User,-Log%20in%20to).
 
 
-## Integrating AWS Export & Import API with Dataloop Platform
+## Integrating AWS Export & Import API with DDOE Platform
 
-- Visit the [Dataloop Marketplace](https://docs.dataloop.ai/docs/marketplace), under Applications tab.
+- Visit the [DDOE Marketplace](https://docs.dataloop.ai/docs/marketplace), under Applications tab.
 - Select the application and click on "Install" and then "Proceed".
   ![marketplace.png](assets/marketplace.png)
 - Select an existing AWS integration or add a new one by creating an AWS integration with `key` and `secret`.
